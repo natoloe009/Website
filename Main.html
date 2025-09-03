@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KaGa - Welcome</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      background: linear-gradient(-45deg, #2c3e50, #34495e, #2c3e50, #1a252f);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 40px;
+      border-radius: 20px;
+      border: 2px solid #00f0ff;
+      box-shadow: 0 0 20px #00f0ff80;
+      text-align: center;
+      width: 90%;
+      max-width: 500px;
+      animation: fadeIn 1s ease-in;
+      backdrop-filter: blur(10px);
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(-20px) scale(0.95);}
+      to {opacity: 1; transform: translateY(0) scale(1);}
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #00f0ff;
+      text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+    }
+
+    p {
+      font-size: 14px;
+      margin-bottom: 30px;
+      line-height: 1.6;
+      opacity: 0.8;
+    }
+
+    .password-container {
+      position: relative;
+      width: 80%;
+      margin: 0 auto 20px;
+    }
+
+    input[type="password"],
+    input[type="text"] {
+      padding: 12px 45px 12px 15px;
+      width: 100%;
+      border-radius: 10px;
+      border: 2px solid #00f0ff;
+      outline: none;
+      font-size: 16px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.4);
+      color: white;
+      transition: all 0.3s;
+    }
+
+    input:focus {
+      box-shadow: 0 0 15px #00f0ff;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #00f0ff;
+      font-size: 18px;
+    }
+
+    button {
+      padding: 12px 25px;
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      background: #00f0ff;
+      color: #1a252f;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    button:hover {
+      background: #fff;
+      color: #00f0ff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .link-buttons {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .link-buttons button {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .error-message {
+      color: #ff4d4d;
+      margin-top: 10px;
+      font-size: 14px;
+      min-height: 20px;
+    }
+
+    .success-animation {
+      animation: success 0.5s ease;
+    }
+
+    @keyframes success {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .icon {
+      font-size: 20px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      .container {
+        padding: 25px;
+      }
+      
+      .password-container {
+        width: 95%;
+      }
+      
+      button {
+        padding: 10px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="login">
+    <h2>Nhập mật khẩu để vào</h2>
+    <p>/discord.html</p>
+    
+    <div class="password-container">
+      <input type="password" id="password" placeholder="Mật khẩu" autocomplete="off">
+      <span class="toggle-password" id="togglePassword">👁️</span>
+    </div>
+    
+    <div class="error-message" id="errorMessage"></div>
+    
+    <button onclick="checkPassword()" id="submitBtn">Xác nhận</button>
+  </div>
+
+  <div class="container hidden" id="main">
+    <h2>Welcome to Kaga</h2>
+    
+    <div class="link-buttons">
+      <button onclick="location.href='https://discord.gg/Jxjp57uzEw'">
+        <span class="icon">🎮</span> My Discord Server about Tool
+      </button>
+      <button onclick="location.href='https://www.facebook.com/Kaizn.LHH'">
+        <span class="icon">📘</span> Facebook
+      </button>
+      <button onclick="location.href='https://me.momo.vn/LeHuyenHuy'">
+        <span class="icon">💎</span> Donate
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Get elements
+    const passwordInput = document.getElementById("password");
+    const togglePassword = document.getElementById("togglePassword");
+    const errorMessage = document.getElementById("errorMessage");
+    const loginContainer = document.getElementById("login");
+    const mainContainer = document.getElementById("main");
+    const submitBtn = document.getElementById("submitBtn");
+    
+    // Toggle password visibility
+    togglePassword.addEventListener("click", function() {
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        togglePassword.textContent = "🔒";
+      } else {
+        passwordInput.type = "password";
+        togglePassword.textContent = "👁️";
+      }
+    });
+    
+    // Allow submitting with Enter key
+    passwordInput.addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        checkPassword();
+      }
+    });
+    
+    // Password validation function
+    function checkPassword() {
+      const password = passwordInput.value;
+      
+      if (password === "kagahub") {
+        // Clear any error message
+        errorMessage.textContent = "";
+        
+        // Add success animation
+        submitBtn.classList.add("success-animation");
+        
+        // Wait for animation to complete before transitioning
+        setTimeout(() => {
+          loginContainer.classList.add("hidden");
+          mainContainer.classList.remove("hidden");
+          // Remove animation class for next time
+          submitBtn.classList.remove("success-animation");
+        }, 500);
+      } else {
+        // Show error message
+        errorMessage.textContent = "Mật khẩu không đúng. Vui lòng thử lại.";
+        
+        // Shake animation for error
+        passwordInput.style.animation = "shake 0.5s";
+        setTimeout(() => {
+          passwordInput.style.animation = "";
+        }, 500);
+      }
+    }
+    
+    // Add shake animation for errors
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        20%, 60% { transform: translateX(-10px); }
+        40%, 80% { transform: translateX(10px); }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>

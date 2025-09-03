@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -180,17 +180,19 @@
 </head>
 <body>
   <div class="container" id="login">
-    <h2>Nhập mật khẩu để vào</h2>
-    <p>/discord.html</p>
+    <h2>Enter Password to Continue</h2>
+    <p>
+      Welcome to the portal. Please enter the password to access the content.
+    </p>
     
     <div class="password-container">
-      <input type="password" id="password" placeholder="Mật khẩu" autocomplete="off">
+      <input type="password" id="password" placeholder="Password" autocomplete="off">
       <span class="toggle-password" id="togglePassword">👁️</span>
     </div>
     
     <div class="error-message" id="errorMessage"></div>
     
-    <button onclick="checkPassword()" id="submitBtn">Xác nhận</button>
+    <button onclick="checkPassword()" id="submitBtn">Confirm</button>
   </div>
 
   <div class="container hidden" id="main">
@@ -198,13 +200,13 @@
     
     <div class="link-buttons">
       <button onclick="location.href='https://discord.gg/Jxjp57uzEw'">
-        <span class="icon">🎮</span> My Discord Server about Tool
+        <span class="icon">🎮</span> My Discord Tool Server
       </button>
       <button onclick="location.href='https://www.facebook.com/Kaizn.LHH'">
-        <span class="icon">📘</span> Facebook
+        <span class="icon">📘</span> Facebook Page
       </button>
       <button onclick="location.href='https://me.momo.vn/LeHuyenHuy'">
-        <span class="icon">💎</span> Donate
+        <span class="icon">💎</span> Donate via MoMo
       </button>
     </div>
   </div>
@@ -256,7 +258,7 @@
         }, 500);
       } else {
         // Show error message
-        errorMessage.textContent = "Mật khẩu không đúng. Vui lòng thử lại.";
+        errorMessage.textContent = "Incorrect password. Please try again.";
         
         // Shake animation for error
         passwordInput.style.animation = "shake 0.5s";

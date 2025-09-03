@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KaGa HUB - Roblox Scripts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            color: #00f0ff;
+            text-shadow: 0 0 15px rgba(0, 240, 255, 0.7);
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px #00f0ff;
+            }
+            to {
+                text-shadow: 0 0 20px #00f0ff, 0 0 30px #00f0ff;
+            }
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            color: #00f0ff;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-box {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .search-box input {
+            padding: 15px 20px;
+            width: 100%;
+            max-width: 500px;
+            border: none;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1.1rem;
+            outline: none;
+            border: 2px solid #00f0ff;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+        }
+
+        .search-box input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .script-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .script-card {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            padding: 25px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .script-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 240, 255, 0.4);
+            border-color: #00f0ff;
+        }
+
+        .script-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #00f0ff, #00a2ff);
+        }
+
+        .script-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #00f0ff;
+            display: flex;
+            align-items: center;
+        }
+
+        .script-title i {
+            margin-right: 10px;
+        }
+
+        .script-description {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        .script-code {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            border-left: 3px solid #00f0ff;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .copy-btn {
+            background: linear-gradient(90deg, #00f0ff, #00a2ff);
+            color: #000;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .copy-btn i {
+            margin-right: 8px;
+        }
+
+        .copy-btn:hover {
+            background: linear-gradient(90deg, #00a2ff, #00f0ff);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.7);
+        }
+
+        .copy-btn.copied {
+            background: linear-gradient(90deg, #00ff9d, #00a2ff);
+        }
+
+        .category-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0 40px;
+        }
+
+        .category-btn {
+            padding: 10px 20px;
+            border-radius: 50px;
+            background: rgba(0, 240, 255, 0.2);
+            border: 1px solid #00f0ff;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background: rgba(0, 240, 255, 0.8);
+            color: #000;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 30px 0;
+            color: #ccc;
+            border-top: 1px solid rgba(0, 240, 255, 0.3);
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: rgba(0, 240, 255, 0.9);
+            color: #000;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: transform 0.3s, opacity 0.3s;
+            z-index: 1000;
+            font-weight: bold;
+        }
+
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .script-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .logo {
+                font-size: 2.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-code"></i>
+            </div>
+            <h1>Kaga Script Hub</h1>
+            <p class="subtitle">A collection of powerful Roblox scripts. Click on any script to copy it to your clipboard.</p>
+        </header>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search scripts...">
+        </div>
+
+        <div class="category-filter">
+            <button class="category-btn active" data-category="all">All Scripts</button>
+            <button class="category-btn" data-category="game">Game</button>
+            <button class="category-btn" data-category="utility">Utility</button>
+            <button class="category-btn" data-category="admin">Admin</button>
+            <button class="category-btn" data-category="fun">Fun</button>
+        </div>
+
+        <div class="script-grid">
+            <!-- Script 1 -->
+            <div class="script-card" data-category="game">
+                <h3 class="script-title"><i class="fas fa-gamepad"></i> Infinite Yield</h3>
+                <p class="script-description">The most popular admin script for Roblox with over 100 commands.</p>
+                <div class="script-code">
+                    loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+                </div>
+                <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copy Script</button>
+            </div>
+
+            <!-- Script 2 -->
+            <div class="script-card" data-category="utility">
+                <h3 class="script-title"><i class="fas fa-tools"></i> ESP & Wallhack</h3>
+                <p class="script-description">See players through walls with this ESP script.</p>
+                <div class="script-code">
+                    loadstring(game:HttpGet('https://raw.githubusercontent.com/z4gs/scripts/master/ESP.lua'))()
+                </div>
+                <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copy Script</button>
+            </div>
+
+            <!-- Script 3 -->
+            <div class="script-card" data-category="admin">
+                <h3 class="script-title"><i class="fas fa-user-shield"></i> CMD-X</h3>
+                <p class="script-description">Powerful admin commands for Roblox games.</p>
+                <div class="script-code">
+                    loadstring(game:HttpGet('https://raw.githubusercontent.com/CMD-X/CMD-X/master/Source'))()
+                </div>
+                <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copy Script</button>
+            </div>
+
+            <!-- Script 4 -->
+            <div class="script-card" data-category="fun">
+                <h3 class="script-title"><i class="fas fa-ghost"></i> Ghost GUI</h3>
+                <p class="script-description">Become invisible and haunt other players!</p>
+                <div class="script-code">
+                    loadstring(game:HttpGet('https://pastebin.com/raw/QnNvB0sB'))()
+                </div>
+                <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copy Script</button>
+            </div>
+
+            <!-- Script 5 -->
+            <div class="script-card" data-category="game">
+                <h3 class="script-title"><i class="fas fa-running"></i> Speed Script</h3>
+                <p class="script-description">Increase your character's movement speed.</p>
+                <div class="script-code">
+                    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 50
+                </div>
+                <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copy Script</button>
+            </div>
+
+            <!-- Script 6 -->
+            <div class="script-card" data-category="utility">
+                <h3 class="script-title"><i class="fas fa-bomb"></i> Auto Farm</h3>
+                <p class="script-description">Automatically collect resources in games.</p>
+                <div class="script-code">
+                    while wait() do
+                    -- Auto farm code here
+                    print("Farming resources...")
+                    end
+                </div>
+                <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copy Script</button>
+            </div>
+        </div>
+
+        <footer>
+            <p>Kaga Script Hub &copy; 2023 | All scripts are provided for educational purposes only</p>
+        </footer>
+    </div>
+
+    <div class="notification" id="notification">Script copied to clipboard!</div>
+
+    <script>
+        // Copy code to clipboard
+        function copyCode(button) {
+            const codeElement = button.previousElementSibling;
+            const textArea = document.createElement('textarea');
+            textArea.value = codeElement.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            // Show notification
+            const notification = document.getElementById('notification');
+            notification.classList.add('show');
+            
+            // Change button text
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            button.classList.add('copied');
+            
+            // Reset button after 2 seconds
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.classList.remove('copied');
+            }, 2000);
+            
+            // Hide notification after 3 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const scriptCards = document.querySelectorAll('.script-card');
+            
+            scriptCards.forEach(card => {
+                const title = card.querySelector('.script-title').textContent.toLowerCase();
+                const description = card.querySelector('.script-description').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Category filtering
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                const category = this.getAttribute('data-category');
+                const scriptCards = document.querySelectorAll('.script-card');
+                
+                scriptCards.forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

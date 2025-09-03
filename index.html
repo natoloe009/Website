@@ -153,6 +153,14 @@
       animation: success 0.5s ease;
     }
 
+    .checkbox-container {
+      margin: 15px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
     @keyframes success {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.05); }
@@ -160,6 +168,16 @@
 
     .icon {
       font-size: 20px;
+    }
+
+    .logout-btn {
+      margin-top: 20px;
+      background: #ff4d4d !important;
+    }
+
+    .logout-btn:hover {
+      background: #ff7777 !important;
+      color: white !important;
     }
 
     /* Responsive adjustments */
@@ -190,6 +208,11 @@
       <span class="toggle-password" id="togglePassword">👁️</span>
     </div>
     
+    <div class="checkbox-container">
+      <input type="checkbox" id="rememberMe">
+      <label for="rememberMe">Remember me on this device</label>
+    </div>
+    
     <div class="error-message" id="errorMessage"></div>
     
     <button onclick="checkPassword()" id="submitBtn">Confirm</button>
@@ -209,6 +232,8 @@
         <span class="icon">💎</span> Donate via MoMo
       </button>
     </div>
+
+    <button class="logout-btn" onclick="logout()">Log Out</button>
   </div>
 
   <script>
@@ -219,6 +244,19 @@
     const loginContainer = document.getElementById("login");
     const mainContainer = document.getElementById("main");
     const submitBtn = document.getElementById("submitBtn");
+    const rememberMeCheckbox = document.getElementById("rememberMe");
+    
+    // Check if user is already logged in
+    function checkLoginStatus() {
+      const isLoggedIn = localStorage.getItem('kagaLoggedIn');
+      if (isLoggedIn === 'true') {
+        loginContainer.classList.add("hidden");
+        mainContainer.classList.remove("hidden");
+      }
+    }
+    
+    // Run check on page load
+    checkLoginStatus();
     
     // Toggle password visibility
     togglePassword.addEventListener("click", function() {
@@ -246,6 +284,11 @@
         // Clear any error message
         errorMessage.textContent = "";
         
+        // Save login status if "Remember me" is checked
+        if (rememberMeCheckbox.checked) {
+          localStorage.setItem('kagaLoggedIn', 'true');
+        }
+        
         // Add success animation
         submitBtn.classList.add("success-animation");
         
@@ -266,6 +309,14 @@
           passwordInput.style.animation = "";
         }, 500);
       }
+    }
+    
+    // Logout function
+    function logout() {
+      localStorage.removeItem('kagaLoggedIn');
+      mainContainer.classList.add("hidden");
+      loginContainer.classList.remove("hidden");
+      passwordInput.value = "";
     }
     
     // Add shake animation for errors
